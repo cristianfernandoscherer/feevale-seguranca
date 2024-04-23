@@ -1,7 +1,7 @@
 version: "3"
 services:
   node:
-    build: .
+    build: ./api/
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
@@ -11,3 +11,45 @@ services:
       - "3000"
     ports:
       - "3000:3000"
+    depends_on:
+      - mysqldb
+    networks:
+      - dockernet
+  mysqldb:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=catalog
+    volumes: 
+      - db:/var/lib/mysql
+    networks:
+      - dockernet
+  php:
+    image: php:8.0-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/var/www/html
+    networks:
+      - dockernet
+    depends_on:
+      - node
+
+volumes:
+  db:
+
+networks:
+  dockernet:
+    name: dockernet
+    driver: bridge
+
+  #CREATE TABLE IF NOT EXISTS products (
+  #  id INT NOT NULL AUTO_INCREMENT,
+  #  name VARCHAR(255) NOT NULL,
+  #  price DECIMAL(10, 2) NOT NULL,
+  #  PRIMARY KEY (id)
+  #);
+
+  #INSERT INTO products (name, price) VALUES ('Product 1', 100.0);
