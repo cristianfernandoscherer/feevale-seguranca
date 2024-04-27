@@ -26,7 +26,6 @@ app.post('/products', function (req, res) {
         price: req.body.price,
     };
 
-    // Insert the request body into the database
     const query = `INSERT INTO products (name, price) VALUES (?, ?)`;
     connection.query(query, [reqBody.name, reqBody.price]);
     res.status(201);
