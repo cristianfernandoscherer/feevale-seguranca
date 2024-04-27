@@ -2,8 +2,13 @@
 Esse projeto foi desenvolvido para aplicar os conhecimentos sobre vulnerabilidades de XSS. 
 
 ### Setup do projeto
-Clone o projeto<br>
-Em seguida levante o ambiente: docker-compose up --build
+1. Em seguida levante o ambiente: docker-compose up --build<br>
+2. Criar database:
+<ul>
+    <li>Acesse o container chamado docker-sec-mysqldb-1, ex,: docker exec -it :container_id /bin/bash</li>
+    <li>Dentro do container acesse o mysql, ex.: mysql -uroot -proot</li>
+    <li>Copie o .sql do arquivo database.sql, localizado na raiz do projeto, e rode no seu mysql.</li>
+</ul>
 
 ### Testando a aplicação
 <h4>Simule a requisição abaixo:</h4>
